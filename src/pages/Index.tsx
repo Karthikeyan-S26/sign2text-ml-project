@@ -67,6 +67,43 @@ const Index = () => {
 
       <PredictionBox prediction={prediction} />
 
+      {/* GUIDANCE SECTION: Shows what sign is added and what text is shown */}
+      <section className="max-w-2xl mx-auto mt-4 p-4 rounded-xl bg-card/80 shadow border mb-6">
+        <h2 className="font-semibold mb-2 text-xl">Demo Signs Guidance</h2>
+        <p className="text-muted-foreground mb-3 text-base">
+          The following signs are recognized in this demo. Try forming these signs with your hand in view of the camera, and the shown text will appear below:
+        </p>
+        <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 px-2 list-disc list-inside mb-1">
+          <li>
+            <b>✋ Hello</b>
+            <div className="text-muted-foreground text-sm">→ Shows text: <span className="text-primary font-semibold">Hello</span></div>
+          </li>
+          <li>
+            <b>🤚 A</b>
+            <div className="text-muted-foreground text-sm">→ Shows text: <span className="text-primary font-semibold">A</span></div>
+          </li>
+          <li>
+            <b>🖐️ B</b>
+            <div className="text-muted-foreground text-sm">→ Shows text: <span className="text-primary font-semibold">B</span></div>
+          </li>
+          <li>
+            <b>✊ C</b>
+            <div className="text-muted-foreground text-sm">→ Shows text: <span className="text-primary font-semibold">C</span></div>
+          </li>
+          <li>
+            <b>👉 "How are you?"</b>
+            <div className="text-muted-foreground text-sm">→ Shows text: <span className="text-primary font-semibold">How are you?</span></div>
+          </li>
+          <li>
+            <b>🤟 "Thank you"</b>
+            <div className="text-muted-foreground text-sm">→ Shows text: <span className="text-primary font-semibold">Thank you</span></div>
+          </li>
+        </ul>
+        <div className="text-xs text-muted-foreground">
+          (Note: The icons above are symbolic. Show the corresponding hand sign to see its text output.)
+        </div>
+      </section>
+
       <InfoPanel />
 
       <section className="max-w-2xl mx-auto mt-2 p-4 rounded-xl bg-popover/80 shadow border mb-8">
