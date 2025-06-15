@@ -4,7 +4,7 @@ import WebcamFeed from "../components/WebcamFeed";
 import PredictionBox from "../components/PredictionBox";
 import InfoPanel from "../components/InfoPanel";
 import { toast } from "@/hooks/use-toast";
-import { Play, Pause } from "lucide-react";
+import { Play, Pause, Smile, Frown, Angry } from "lucide-react";
 
 const Index = () => {
   const [enabled, setEnabled] = useState(true);
@@ -18,13 +18,27 @@ const Index = () => {
       return;
     }
     let idx = 0;
-    const labels = ["Hello", "A", "B", "C", "How are you?", "Thank you"];
+    const labels = [
+      "Hello",
+      "A",
+      "B",
+      "C",
+      "How are you?",
+      "Thank you",
+      "Happy",
+      "Sad",
+      "Angry",
+      ...Array.from({ length: 23 }, (_, i) => String.fromCharCode(68 + i)), // D-Z
+    ];
     setPrediction(labels[0]);
     const interval = setInterval(() => {
       setPrediction(labels[(++idx) % labels.length]);
     }, 2000);
     return () => clearInterval(interval);
   }, [enabled]);
+
+  // Alphabet letters A-Z for guidance
+  const ALPHABETS = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
 
   return (
     <main className="min-h-screen w-full bg-background pb-8 pt-6 flex flex-col items-center justify-start animate-fade-in">
@@ -71,36 +85,85 @@ const Index = () => {
       <section className="max-w-2xl mx-auto mt-4 p-4 rounded-xl bg-card/80 shadow border mb-6">
         <h2 className="font-semibold mb-2 text-xl">Demo Signs Guidance</h2>
         <p className="text-muted-foreground mb-3 text-base">
-          The following signs are recognized in this demo. Try forming these signs with your hand in view of the camera, and the shown text will appear below:
+          The following hand signs and facial expressions are recognized in this demo.
         </p>
-        <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 px-2 list-disc list-inside mb-1">
+        <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 px-2 list-disc list-inside mb-3">
           <li>
             <b>✋ Hello</b>
-            <div className="text-muted-foreground text-sm">→ Shows text: <span className="text-primary font-semibold">Hello</span></div>
+            <div className="text-muted-foreground text-sm">
+              → Shows text: <span className="text-primary font-semibold">Hello</span>
+            </div>
           </li>
           <li>
             <b>🤚 A</b>
-            <div className="text-muted-foreground text-sm">→ Shows text: <span className="text-primary font-semibold">A</span></div>
+            <div className="text-muted-foreground text-sm">
+              → Shows text: <span className="text-primary font-semibold">A</span>
+            </div>
           </li>
           <li>
             <b>🖐️ B</b>
-            <div className="text-muted-foreground text-sm">→ Shows text: <span className="text-primary font-semibold">B</span></div>
+            <div className="text-muted-foreground text-sm">
+              → Shows text: <span className="text-primary font-semibold">B</span>
+            </div>
           </li>
           <li>
             <b>✊ C</b>
-            <div className="text-muted-foreground text-sm">→ Shows text: <span className="text-primary font-semibold">C</span></div>
+            <div className="text-muted-foreground text-sm">
+              → Shows text: <span className="text-primary font-semibold">C</span>
+            </div>
           </li>
           <li>
             <b>👉 "How are you?"</b>
-            <div className="text-muted-foreground text-sm">→ Shows text: <span className="text-primary font-semibold">How are you?</span></div>
+            <div className="text-muted-foreground text-sm">
+              → Shows text: <span className="text-primary font-semibold">How are you?</span>
+            </div>
           </li>
           <li>
             <b>🤟 "Thank you"</b>
-            <div className="text-muted-foreground text-sm">→ Shows text: <span className="text-primary font-semibold">Thank you</span></div>
+            <div className="text-muted-foreground text-sm">
+              → Shows text: <span className="text-primary font-semibold">Thank you</span>
+            </div>
+          </li>
+          {/* Facial Expressions */}
+          <li className="flex items-center gap-2">
+            <Smile className="inline-block w-6 h-6 text-yellow-500" />
+            <span className="font-semibold ml-2">Happy (Facial Expression)</span>
+            <div className="text-muted-foreground text-sm w-full">
+              → Shows text: <span className="text-primary font-semibold">Happy</span>
+            </div>
+          </li>
+          <li className="flex items-center gap-2">
+            <Frown className="inline-block w-6 h-6 text-blue-500" />
+            <span className="font-semibold ml-2">Sad (Facial Expression)</span>
+            <div className="text-muted-foreground text-sm w-full">
+              → Shows text: <span className="text-primary font-semibold">Sad</span>
+            </div>
+          </li>
+          <li className="flex items-center gap-2">
+            <Angry className="inline-block w-6 h-6 text-red-500" />
+            <span className="font-semibold ml-2">Angry (Facial Expression)</span>
+            <div className="text-muted-foreground text-sm w-full">
+              → Shows text: <span className="text-primary font-semibold">Angry</span>
+            </div>
           </li>
         </ul>
-        <div className="text-xs text-muted-foreground">
-          (Note: The icons above are symbolic. Show the corresponding hand sign to see its text output.)
+        {/* Alphabets guidance grid */}
+        <div className="mb-1 font-semibold text-base">All Alphabet Letters:</div>
+        <div className="grid grid-cols-6 md:grid-cols-13 gap-2 px-2">
+          {ALPHABETS.map((letter) => (
+            <div
+              key={letter}
+              className="flex flex-row items-center gap-2 py-2 px-0"
+            >
+              <span className="text-lg font-bold">{letter}</span>
+              <span className="text-muted-foreground text-xs">
+                → <span className="text-primary font-semibold">{letter}</span>
+              </span>
+            </div>
+          ))}
+        </div>
+        <div className="text-xs text-muted-foreground mt-2">
+          (Note: The icons and emojis above are symbolic. Show the corresponding hand sign or facial expression to see its text output.)
         </div>
       </section>
 
