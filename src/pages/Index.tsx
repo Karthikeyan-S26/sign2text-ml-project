@@ -17,7 +17,7 @@ const Index = () => {
       setPrediction(null);
       return;
     }
-    let idx = 0;
+    
     const labels = [
       "Hello",
       "A",
@@ -30,11 +30,21 @@ const Index = () => {
       "Angry",
       ...Array.from({ length: 23 }, (_, i) => String.fromCharCode(68 + i)), // D-Z
     ];
+    
+    let idx = 0;
     setPrediction(labels[0]);
+    console.log("Starting demo mode with prediction:", labels[0]);
+    
     const interval = setInterval(() => {
-      setPrediction(labels[(++idx) % labels.length]);
+      idx = (idx + 1) % labels.length;
+      setPrediction(labels[idx]);
+      console.log("Demo prediction changed to:", labels[idx]);
     }, 2000);
-    return () => clearInterval(interval);
+    
+    return () => {
+      console.log("Clearing prediction interval");
+      clearInterval(interval);
+    };
   }, [enabled]);
 
   // Alphabet letters A-Z for guidance
